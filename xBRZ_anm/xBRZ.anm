@@ -1,0 +1,4 @@
+--track0:倍率,2,6,2,1
+--dialog:バッファを使用する/chk,local usebuf=1;解像度無制限/chk,local unlimit=0;
+local xBRZ = require("xBRZ")
+xBRZ.scale(obj, usebuf == 1, unlimit == 0)
