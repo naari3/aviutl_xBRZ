@@ -3,14 +3,16 @@ RMDIR = cmd.exe /C rmdir /s /q
 RM = cmd.exe /C del
 CP = cmd.exe /C copy
 
+TARGET_DIR = xBRZ
+
 .PHONY:
 	build clean
 
 build:
-	$(MKDIR) aviutl_xBRZ
-	$(CP) .\\xBRZ_dll\\Release\\XBRZ.dll .\\aviutl_xBRZ\\xBRZ.dll
-	$(CP) .\\xBRZ_anm\\xBRZ.* .\\aviutl_xBRZ\\
-	zip -r aviutl_xBRZ.zip aviutl_xBRZ
+	$(MKDIR) $(TARGET_DIR)
+	$(CP) .\\xBRZ_dll\\Release\\XBRZ.dll .\\$(TARGET_DIR)\\xBRZ.dll
+	$(CP) .\\xBRZ_anm\\xBRZ.* .\\$(TARGET_DIR)\\
+	zip -r aviutl_xBRZ.zip $(TARGET_DIR)
 clean:
-	-$(RMDIR) .\\aviutl_xBRZ 
+	-$(RMDIR) .\\$(TARGET_DIR) 
 	-$(RM) .\\aviutl_xBRZ.zip
