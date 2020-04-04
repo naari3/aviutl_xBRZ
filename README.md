@@ -12,6 +12,8 @@ This project used xBRZ library from [here](https://sourceforge.net/projects/xbrz
 
 ## インストール方法
 
+1. 事前に拡張編集plugin導入済みの aviutl でLuaJITを有効にする
+  1. 例えば aviutl v1.10 の場合は拡張編集の `環境設定` `LuaJITを利用する` にチェックを入れておく
 1. [Release](https://github.com/naari3/aviutl_xBRZ/releases) から最新のzipをダウンロード
-2. ダウンロードしたzipを解凍し出てきた `xBRZ` フォルダを拡張編集plugin導入済みの aviutl の `script` フォルダにドラッグ&ドロップ
-3. aviutl を起動し、フィルターを掛けたい対象に `アニメーション効果` を適用し、続けて `xBRZ` を適用する
+1. ダウンロードしたzipを解凍し出てきた `xBRZ` フォルダを拡張編集plugin導入済みの aviutl の `script` フォルダにドラッグ&ドロップ
+1. aviutl を起動し、フィルターを掛けたい対象に `アニメーション効果` を適用し、続けて `xBRZ` を適用する
