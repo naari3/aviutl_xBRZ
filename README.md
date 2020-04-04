@@ -2,6 +2,10 @@
 
 Using xBRZ (upscaling filter) in aviutl.
 
+![1](https://user-images.githubusercontent.com/12756563/78413833-37940780-7654-11ea-8aa0-9ae7693156d4.png)
+
+![2](https://user-images.githubusercontent.com/12756563/78413851-47135080-7654-11ea-9e44-9589211dcbd2.png)
+
 Download from [here](https://github.com/naari3/aviutl_xBRZ/releases)
 
 This project used xBRZ library from [here](https://sourceforge.net/projects/xbrz/)
