@@ -30,6 +30,27 @@
 
 using namespace xbrz;
 
+int scale(lua_State* L) {
+	size_t factor = static_cast<size_t>(lua_tointeger(L, 1));
+	const uint32_t* src = static_cast<const uint32_t*>(lua_touserdata(L, 2));
+	uint32_t* trg = static_cast<uint32_t*>(lua_touserdata(L, 3));
+	int srcWidth = static_cast<int>(lua_tointeger(L, 4));
+	int srcHeight = static_cast<int>(lua_tointeger(L, 5));
+	ColorFormat colFmt = static_cast<ColorFormat>(lua_tointeger(L, 6));
+	xbrz::scale(factor, src, trg, srcWidth, srcHeight, colFmt);
+	return 0;
+}
+
+
+const static luaL_Reg functions[] = {
+	{ "scale", scale },
+	{ nullptr, nullptr }
+};
+
+int luaopen_xBRZ(lua_State* L) {
+	luaL_register(L, "xBRZ", functions);
+	return 1;
+}
 
 namespace
 {

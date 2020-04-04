@@ -10,7 +10,7 @@ TARGET_DIR = xBRZ
 
 build:
 	$(MKDIR) $(TARGET_DIR)
-	$(CP) .\\xBRZ_dll\\Release\\XBRZ.dll .\\$(TARGET_DIR)\\xBRZ.dll
+	$(CP) .\\xBRZ_dll\\Release\\xBRZ.dll .\\$(TARGET_DIR)\\
 	$(CP) .\\xBRZ_anm\\xBRZ.* .\\$(TARGET_DIR)\\
 	zip -r aviutl_xBRZ.zip $(TARGET_DIR)
 clean:

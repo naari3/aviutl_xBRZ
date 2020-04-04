@@ -1,4 +1,31 @@
 --track0:倍率,2,6,2,1
 --dialog:バッファを使用する/chk,local usebuf=1;解像度無制限/chk,local unlimit=0;
-local xBRZ = require("xBRZ")
-xBRZ.scale(obj, usebuf == 1, unlimit == 0)
+
+require("xBRZ")
+
+local function scale(obj, usebuf, limitter)
+  local max_x, max_y = obj.getinfo("image_max")
+  local fobj, fw, fh = obj.getpixeldata("alloc")
+
+  local factor = obj.track0
+  local colorfmt = 1
+
+  if usebuf then
+    colorfmt = 1
+  else
+    colorfmt = 2
+  end
+
+  if (max_x >= fw * factor) and (max_y >= fh * factor) or not limitter then
+    obj.setoption("drawtarget", "tempbuffer", fw*factor, fh*factor)
+    obj.load("tempbuffer")
+
+    local tobj, tw, th = obj.getpixeldata()
+
+    xBRZ.scale(factor, fobj, tobj, fw, fh, colorfmt)
+
+    obj.putpixeldata(tobj)
+  end
+end
+
+scale(obj, usebuf == 1, unlimit == 0)
