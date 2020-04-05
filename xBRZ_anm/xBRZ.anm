@@ -1,9 +1,26 @@
 --track0:倍率,2,6,2,1
---dialog:バッファを使用する/chk,local usebuf=1;解像度無制限/chk,local unlimit=0;
+--dialog:バッファを使用する/chk,local usebuf=1;解像度無制限/chk,local unlimit=0;luminanceWeight,local luminanceWeight=1;equalColorTolerance,local equalColorTolerance=30;centerDirectionBias,local centerDirectionBias=4;dominantDirectionThreshold,local dominantDirectionThreshold=3.6;steepDirectionThreshold,local steepDirectionThreshold=2.2;
+
+-- {
+--   double luminanceWeight = 1;
+--   double equalColorTolerance = 30;
+--   double centerDirectionBias = 4;
+--   double dominantDirectionThreshold = 3.6;
+--   double steepDirectionThreshold = 2.2;
+--   double newTestAttribute = 0; not used
+-- };
 
 require("xBRZ")
 
-local function scale(obj, usebuf, limitter)
+local config = {
+	luminanceWeight = luminanceWeight or 1,
+  equalColorTolerance = equalColorTolerance or 30,
+  centerDirectionBias = centerDirectionBias or 4,
+  dominantDirectionThreshold = dominantDirectionThreshold or 3.6,
+  steepDirectionThreshold = steepDirectionThreshold or 2.2
+}
+
+local function scale(obj, usebuf, limitter, config)
   local max_x, max_y = obj.getinfo("image_max")
   local fobj, fw, fh = obj.getpixeldata("alloc")
 
@@ -22,10 +39,10 @@ local function scale(obj, usebuf, limitter)
 
     local tobj, tw, th = obj.getpixeldata()
 
-    xBRZ.scale(factor, fobj, tobj, fw, fh, colorfmt)
+    xBRZ.scale(factor, fobj, tobj, fw, fh, colorfmt, config)
 
     obj.putpixeldata(tobj)
   end
 end
 
-scale(obj, usebuf == 1, unlimit == 0)
+scale(obj, usebuf == 1, unlimit == 0, config)

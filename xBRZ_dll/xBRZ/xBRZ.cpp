@@ -37,7 +37,25 @@ int scale(lua_State* L) {
 	int srcWidth = static_cast<int>(lua_tointeger(L, 4));
 	int srcHeight = static_cast<int>(lua_tointeger(L, 5));
 	ColorFormat colFmt = static_cast<ColorFormat>(lua_tointeger(L, 6));
-	xbrz::scale(factor, src, trg, srcWidth, srcHeight, colFmt);
+
+	lua_getfield(L, 7, "luminanceWeight");
+	lua_getfield(L, 7, "equalColorTolerance");
+	lua_getfield(L, 7, "centerDirectionBias");
+	lua_getfield(L, 7, "dominantDirectionThreshold");
+	lua_getfield(L, 7, "steepDirectionThreshold");
+
+	auto luminanceWeight = static_cast<double>(lua_tonumber(L, 8));
+	auto equalColorTolerance = static_cast<double>(lua_tonumber(L, 9));
+	auto centerDirectionBias = static_cast<double>(lua_tonumber(L, 10));
+	auto dominantDirectionThreshold = static_cast<double>(lua_tonumber(L, 11));
+	auto steepDirectionThreshold = static_cast<double>(lua_tonumber(L, 12));
+
+	ScalerCfg cfg = {
+		luminanceWeight, equalColorTolerance, centerDirectionBias, dominantDirectionThreshold, steepDirectionThreshold
+	};
+
+	xbrz::scale(factor, src, trg, srcWidth, srcHeight, colFmt, cfg);
+
 	return 0;
 }
 
@@ -255,7 +273,7 @@ namespace
 			((b_diff + 0xFF) / 2);
 #endif
 		return diffToDist[index];
-	}
+			}
 
 
 #if defined _MSC_VER && !defined NDEBUG
@@ -1182,7 +1200,7 @@ namespace
 			pixBack = gradientARGB<M, N>(pixFront, pixBack);
 		}
 	};
-}
+	}
 
 
 void xbrz::scale(size_t factor, const uint32_t* src, uint32_t* trg, int srcWidth, int srcHeight, ColorFormat colFmt, const xbrz::ScalerCfg& cfg, int yFirst, int yLast)
@@ -1365,7 +1383,7 @@ void bilinearScaleAmp(const uint32_t* src, int srcWidth, int srcHeight, //throw 
 
 				return c11 * x2xy2y + c21 * xx1y2y +
 					c12 * x2xyy1 + c22 * xx1yy1;
-			};
+		};
 
 			const float bi = interpolate(0);
 			const float gi = interpolate(1);
@@ -1378,7 +1396,7 @@ void bilinearScaleAmp(const uint32_t* src, int srcWidth, int srcHeight, //throw 
 			const auto a = static_cast<uint32_t>(ai + 0.5f);
 
 			trgView(y, x) = (a << 24) | (r << 16) | (g << 8) | b;
-		});
+	});
 	trgView.synchronize(); //throw ?
-}
+	}
 #endif
